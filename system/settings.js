@@ -1,7 +1,7 @@
-import { localizer } from '../lib/helpers'
+import { localizer } from '../lib/helpers.js'
 import defaultMechanicSettings from './defaults/mechanicSettings.js'
-import OreGeneralSettings from './documents/OreGeneralSettings'
-import OreMechanicSettingsModel from './models/OreMechanicSettingsModel'
+import OreGeneralSettings from './documents/OreGeneralSettings.js'
+import OreMechanicSettingsModel from './models/OreMechanicSettingsModel.js'
 
 export const registerSettings = () => {
     game.settings.registerMenu('ore', 'GeneralSettings', {

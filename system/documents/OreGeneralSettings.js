@@ -1,5 +1,5 @@
-import { localizer } from "../../lib/helpers"
-import Logger from "../../lib/Logger"
+import { localizer } from "../../lib/helpers.js"
+import Logger from "../../lib/Logger.js"
 
 export default class OreGeneralSettings extends FormApplication {
     constructor() {

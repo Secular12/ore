@@ -1,1 +1,4 @@
-{}
+{
+    "GeneralSettings": "General Settings",
+    "GeneralSettingsH": "Configure this world's settings including actors, items, and mechanics."
+}

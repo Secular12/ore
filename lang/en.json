@@ -6,6 +6,6 @@
     "GeneralSettings": "General Settings",
     "GeneralSettingsH": "Configure this world's settings including actors, items, and mechanics.",
     "MaxDicePoolSize": "Max Dice Pool Size",
-    "MaxDicePoolSizeHint": "This caps the amount of dice that can be rolled in a dice pool.",
+    "MaxDicePoolSizeHint": "This caps the amount of dice that can be rolled in a dice pool, unless overridden in the dice pool.",
     "MechanicSettings": "Mechanic Settings"
 }

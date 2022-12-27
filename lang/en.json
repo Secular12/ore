@@ -1,4 +1,8 @@
 {
+    "DiceSize": "Dice Size",
+    "DiceSize6Hint": "Mechanics mostly remain with this selection, just remember that hit locations (if used) and probabilites change drastically.",
+    "DiceSize10Hint": "This is the default die size used in ORE.",
+    "DiceSizeHint": "Choose the die size for dice in the game.",
     "GeneralSettings": "General Settings",
     "GeneralSettingsH": "Configure this world's settings including actors, items, and mechanics.",
     "MechanicSettings": "Mechanic Settings"

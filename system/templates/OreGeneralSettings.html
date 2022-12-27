@@ -1,2 +1,12 @@
 <form autocomplete="off" class="{{cssClass}}">
+    <fieldset>
+        <legend>{{localize 'DiceSize'}}</legend>
+        <p>{{localize 'DiceSizeHint'}}</p>
+        {{radioBoxes 'diceSize' diceSizeChoices checked=mechanicSettings.diceSize}}
+        {{#if (eq mechanicSettings.diceSize '6')}}
+            <p>{{localize 'DiceSize6Hint'}}</p>
+        {{else}}
+            <p>{{localize 'DiceSize10Hint'}}</p>
+        {{/if}}
+    </fieldset>
 </form>

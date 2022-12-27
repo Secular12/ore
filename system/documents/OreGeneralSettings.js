@@ -27,7 +27,6 @@ export default class OreGeneralSettings extends FormApplication {
         const mechanicSettings = this.deserializeMechanicSettings()
         
         const data = {
-            diceSizeChoices: {10: '10', 6: '6'},
             mechanicSettings,
         }
 
@@ -61,21 +60,34 @@ export default class OreGeneralSettings extends FormApplication {
     }
 
     deserializeMechanicSettings () {
+        const diceSizeChoices = mechanicSettings.schema.fields.diceSize.choices
         const mechanicSettings = game.settings.get('ore', 'mechanicSettings')
-
-        return {
+        
+        const deserializedData = {
             ...mechanicSettings,
-            diceSize: mechanicSettings.diceSize.toString()
+            diceSizeChoices,
+            diceSizeIndex: diceSizeChoices
+                .findIndex(value => value === mechanicSettings.diceSize)
+                .toString()
         }
+
+        Logger()('OreGenealSettings.deserializeMechanicSettings serializedData:', deserializedData)
+
+        return deserializedData
     }
 
     serializeMechanicSettings (data) {
+        const diceSizeChoices = mechanicSettings.schema.fields.diceSize.choices
         const expandedData = expandObject(data)
         const mechanicSettings = game.settings.get('ore', 'mechanicSettings')
 
-        return {
+        const serializedData = {
             ...mechanicSettings,
-            diceSize: +expandedData.diceSize
+            diceSize: diceSizeChoices[expandedData.diceSize]
         }
+
+        Logger()('OreGenealSettings.serializeMechanicSettings serializedData:', serializedData)
+        
+        return serializedData
     }
 }

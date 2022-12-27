@@ -65,10 +65,13 @@ export default class OreGeneralSettings extends FormApplication {
         
         const deserializedData = {
             ...mechanicSettings,
-            diceSizeChoices,
-            diceSizeIndex: diceSizeChoices
+            diceSize: {
+                choices: diceSizeChoices,
+                index: diceSizeChoices
                 .findIndex(value => value === mechanicSettings.diceSize)
-                .toString()
+                .toString(),
+                value: mechanicSettings.diceSize,
+            }
         }
 
         Logger()('OreGenealSettings.deserializeMechanicSettings serializedData:', deserializedData)

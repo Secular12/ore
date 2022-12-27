@@ -2,8 +2,8 @@
     <fieldset>
         <legend>{{localize 'DiceSize'}}</legend>
         <p>{{localize 'DiceSizeHint'}}</p>
-        {{radioBoxes 'diceSize' mechanicSettings.diceSizeChoices checked=mechanicSettings.diceSizeIndex}}
-        {{#if (eq mechanicSettings.diceSize 6)}}
+        {{radioBoxes 'diceSize' mechanicSettings.diceSize.choices checked=mechanicSettings.diceSize.index}}
+        {{#if (eq mechanicSettings.diceSize.value 6)}}
             <p>{{localize 'DiceSize6Hint'}}</p>
         {{else}}
             <p>{{localize 'DiceSize10Hint'}}</p>

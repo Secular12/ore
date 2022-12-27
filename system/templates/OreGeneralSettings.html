@@ -2,11 +2,27 @@
     <fieldset>
         <legend>{{localize 'DiceSize'}}</legend>
         <p>{{localize 'DiceSizeHint'}}</p>
-        {{radioBoxes 'diceSize' mechanicSettings.diceSize.choices checked=mechanicSettings.diceSize.index}}
+        {{
+            radioBoxes
+            'diceSize'
+            mechanicSettings.diceSize.choices
+            checked=mechanicSettings.diceSize.index
+        }}
         {{#if (eq mechanicSettings.diceSize.value 6)}}
             <p>{{localize 'DiceSize6Hint'}}</p>
         {{else}}
             <p>{{localize 'DiceSize10Hint'}}</p>
         {{/if}}
     </fieldset>
+    {{
+        fieldNumber
+        mechanicSettings.maxDicePoolSize.value
+        hint=(localize 'MaxDicePoolSizeHint')
+        label=(localize 'MaxDicePoolSize')
+        max=mechanicSettings.maxDicePoolSize.max
+        min=mechanicSettings.maxDicePoolSize.min
+        name="maxDicePoolSize"
+        required=true
+        step=mechanicSettings.maxDicePoolSize.step
+    }}
 </form>

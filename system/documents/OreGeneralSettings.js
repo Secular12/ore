@@ -1,3 +1,4 @@
+import { fieldListeners } from "../../lib/formHelpers.js"
 import { localizer } from "../../lib/helpers.js"
 import Logger from "../../lib/Logger.js"
 
@@ -44,53 +45,56 @@ export default class OreGeneralSettings extends FormApplication {
             event.target.name
         )
 
-        if (['diceSize'].includes(event.target.name)) {
-            const mechanicSettings = this.serializeMechanicSettings(formData)
+        const expandedData = expandObject(formData)
+        const mechanicSettings = game.settings.get('ore', 'mechanicSettings')
 
-            await game.settings.set('ore', 'mechanicSettings', mechanicSettings)
+        const diceSizeSchema = mechanicSettings.schema.fields.diceSize
 
-            this.render(true)
-        }
+        expandedData.maxDicePoolSize = +expandedData.maxDicePoolSize
+        expandedData.diceSize = diceSizeSchema.choices[expandedData.diceSize]
+
+        Logger()('OreGeneralSettings._updateObject serialized mechanicSettings:', expandedData)
+        
+        await game.settings.set('ore', 'mechanicSettings', expandedData)
+        
+        this.render(true)
     }
 
     activateListeners(html) {
         super.activateListeners(html)
 
         Logger()('OreGeneralSettings.activateListeners html:', html)
+
+        fieldListeners(html)
     }
 
     deserializeMechanicSettings () {
-        const diceSizeChoices = mechanicSettings.schema.fields.diceSize.choices
         const mechanicSettings = game.settings.get('ore', 'mechanicSettings')
+
+        Logger()('OreGenealSettings.deserializeMechanicSettings mechanicSettings:', mechanicSettings)
+
+        const diceSizeSchema = mechanicSettings.schema.fields.diceSize
+        const maxDicePoolSizeSchema = mechanicSettings.schema.fields.maxDicePoolSize
         
         const deserializedData = {
             ...mechanicSettings,
             diceSize: {
-                choices: diceSizeChoices,
-                index: diceSizeChoices
-                .findIndex(value => value === mechanicSettings.diceSize)
-                .toString(),
+                choices: diceSizeSchema.choices,
+                index: diceSizeSchema.choices
+                    .findIndex(value => value === mechanicSettings.diceSize)
+                    .toString(),
                 value: mechanicSettings.diceSize,
+            },
+            maxDicePoolSize: {
+                max: maxDicePoolSizeSchema.max,
+                min: maxDicePoolSizeSchema.min,
+                step: maxDicePoolSizeSchema.step,
+                value: mechanicSettings.maxDicePoolSize
             }
         }
 
-        Logger()('OreGenealSettings.deserializeMechanicSettings serializedData:', deserializedData)
+        Logger()('OreGenealSettings.deserializeMechanicSettings deserializedData:', deserializedData)
 
         return deserializedData
-    }
-
-    serializeMechanicSettings (data) {
-        const diceSizeChoices = mechanicSettings.schema.fields.diceSize.choices
-        const expandedData = expandObject(data)
-        const mechanicSettings = game.settings.get('ore', 'mechanicSettings')
-
-        const serializedData = {
-            ...mechanicSettings,
-            diceSize: diceSizeChoices[expandedData.diceSize]
-        }
-
-        Logger()('OreGenealSettings.serializeMechanicSettings serializedData:', serializedData)
-        
-        return serializedData
     }
 }

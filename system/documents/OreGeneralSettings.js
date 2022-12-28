@@ -40,9 +40,7 @@ export default class OreGeneralSettings extends FormApplication {
         Logger()(
             'OreGeneralSettings._updateObject event, formData',
             event,
-            formData,
-            'OreGeneralSettings._updateObject event.target.name',
-            event.target.name
+            formData
         )
 
         const expandedData = expandObject(formData)

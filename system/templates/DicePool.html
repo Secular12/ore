@@ -1,0 +1,81 @@
+<form class="DicePool__form" autocomplete="off">
+    <div class="DicePool__custom flex flex-row items-end gap-2 mb-2">
+        {{
+            fieldNumber
+            customAdd.value
+            class="shrink"
+            inputClass="w-8 text-center"
+            label=(localize 'Dice')
+            labelClass="block"
+            name="customAdd.value"
+            required=true
+            step=1
+        }}
+        <div class="field__container DicePool__custom--container">
+            <label class="field__label DicePool__custom--label">{{localize 'Name'}}</label>
+            <input class="field__input--text DicePool__custon--name" name="customAdd.name" value="{{customAdd.name}}" type="text">
+        </div>
+        <div class="shrink">
+            <button
+                id="add-custom-dice"
+                type="button"
+            >{{localize 'Add'}}</button>
+        </div>
+    </div>
+    {{#if (gt (length pool) 0)}}
+        <ul>
+            {{#each pool as |item|}}
+                {{#if (eq item.type 'base')}}
+                    <li class="text-black-700">
+                {{else if (eq item.type 'bonus')}}
+                    <li class="text-green-700">
+                {{else if (eq item.type 'penalty')}}
+                    <li class="text-red-700">
+                {{else}}
+                    <li class="text-gray-700 italic">
+                {{/if}}
+                {{item.value}} {{item.name}}</li>
+            {{/each}}
+        </ul>
+    {{/if}}
+    <p class="total-dice">{{totalDice}}</p>
+    <label>
+        <input type="checkbox" id="override-max-dice" name="overrideMaxDice" {{checked overrideMaxDice}}>
+        <span>{{localize 'OverrideMaxDice'}}</span>
+    </label>
+    {{
+        fieldNumber
+        maxDiceOverride
+        disabled=(not overrideMaxDice)
+        id="max-dice-override"
+        name="maxDiceOverride"
+        label=(localize 'MaxDice')
+        min=0
+        required=true
+        step=1
+    }}
+    <div class="flex items-end justify-start gap-2 mt-2">
+        <div class="shrink">
+            <button
+                id="clear-dice-pool"
+                type="button"
+            >{{localize 'Clear'}}</button>
+        </div>
+        <div class="shrink">
+            <select name="rollMode">
+                {{#select rollMode}}
+                    <option value="publicroll">{{localize 'PublicRoll'}}</option>
+                    <option value="gmroll">{{localize 'PrivateGmRoll'}}</option>
+                    <option value="blindroll">{{localize 'BlindGmRoll'}}</option>
+                    <option value="selfroll">{{localize 'SelfRoll'}}</option>
+                {{/select}}
+            </select>
+        </div>
+        <div class="shrink">
+            <button
+                id="roll-dice-pool"
+                type="button"
+            >{{localize 'Roll'}}</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,103 @@
+<div class="ore roll-result">
+    <ul>
+        {{#if (eq diceSize 10)}}
+            {{#if (get rollResults 10)}}
+                <li>
+                    <ul>
+                        {{#times (get rollResults 10)}}
+                            <li>10</li>
+                        {{/times}}
+                    </ul>
+                </li>
+            {{/if}}
+            {{#if (get rollResults 9)}}
+                <li>
+                    <ul>
+                        {{#times (get rollResults 9)}}
+                            <li>9</li>
+                        {{/times}}
+                    </ul>
+                </li>
+            {{/if}}
+            {{#if (get rollResults 8)}}
+                <li>
+                    <ul>
+                        {{#times (get rollResults 8)}}
+                            <li>8</li>
+                        {{/times}}
+                    </ul>
+                </li>
+            {{/if}}
+            {{#if (get rollResults 7)}}
+                <li>
+                    <ul>
+                        {{#times (get rollResults 7)}}
+                            <li>7</li>
+                        {{/times}}
+                    </ul>
+                </li>
+            {{/if}}
+        {{/if}}
+        {{#if (get rollResults 6)}}
+            <li>
+                <ul>
+                    {{#times (get rollResults 6)}}
+                        <li>6</li>
+                    {{/times}}
+                </ul>
+            </li>
+        {{/if}}
+        {{#if (get rollResults 5)}}
+            <li>
+                <ul>
+                    {{#times (get rollResults 5)}}
+                        <li>5</li>
+                    {{/times}}
+                </ul>
+            </li>
+        {{/if}}
+        {{#if (get rollResults 4)}}
+            <li>
+                <ul>
+                    {{#times (get rollResults 4)}}
+                        <li>4</li>
+                    {{/times}}
+                </ul>
+            </li>
+        {{/if}}
+        {{#if (get rollResults 3)}}
+            <li>
+                <ul>
+                    {{#times (get rollResults 3)}}
+                        <li>3</li>
+                    {{/times}}
+                </ul>
+            </li>
+        {{/if}}
+        {{#if (get rollResults 2)}}
+            <li>
+                <ul>
+                    {{#times (get rollResults 2)}}
+                        <li>2</li>
+                    {{/times}}
+                </ul>
+            </li>
+        {{/if}}
+        {{#if (get rollResults 1)}}
+            <li>
+                <ul>
+                    {{#times (get rollResults 1)}}
+                        <li>1</li>
+                    {{/times}}
+                </ul>
+            </li>
+        {{/if}}
+    </ul>
+    <ul>
+        {{#each pool as |item|}}
+            <li>{{item.value}} {{item.name}}</li>
+        {{/each}}
+    </ul>
+    <p>{{totalDice}}</p>
+    <button class="re-roll" type="button">{{localize 'ReRoll'}}</button>
+</div>

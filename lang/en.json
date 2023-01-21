@@ -1,11 +1,23 @@
 {
+    "Add": "Add",
+    "BlindGmRoll": "Blind GM Roll",
+    "Clear": "Clear",
+    "Dice": "Dice",
     "DiceSize": "Dice Size",
     "DiceSize6Hint": "Mechanics mostly remain with this selection, just remember that hit locations (if used) and probabilites change drastically.",
     "DiceSize10Hint": "This is the default die size used in ORE.",
     "DiceSizeHint": "Choose the die size for the dice in the game.",
     "GeneralSettings": "General Settings",
     "GeneralSettingsH": "Configure this world's settings including actors, items, and mechanics.",
+    "MaxDice": "Max Dice",
     "MaxDicePoolSize": "Max Dice Pool Size",
     "MaxDicePoolSizeHint": "This caps the amount of dice that can be rolled in a dice pool, unless overridden in the dice pool.",
-    "MechanicSettings": "Mechanic Settings"
+    "MechanicSettings": "Mechanic Settings",
+    "Name": "Name",
+    "OverrideMaxDice": "Override Max Dice",
+    "PrivateGmRoll": "Private GM Roll",
+    "PublicRoll": "Public Roll",
+    "ReRoll": "Re-Roll",
+    "Roll": "Roll",
+    "SelfRoll": "Self Roll"
 }

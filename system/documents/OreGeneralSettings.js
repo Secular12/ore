@@ -1,6 +1,6 @@
-import { fieldListeners } from "../../lib/formHelpers.js"
-import { localizer } from "../../lib/helpers.js"
-import Logger from "../../lib/Logger.js"
+import { fieldListeners } from "../lib/formHelpers.js"
+import { localizer } from "../lib/helpers.js"
+import Logger from "../lib/Logger.js"
 
 export default class OreGeneralSettings extends FormApplication {
     constructor() {

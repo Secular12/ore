@@ -1,4 +1,4 @@
-import { localizer } from '../lib/helpers.js'
+import { localizer } from './lib/helpers.js'
 import defaultMechanicSettings from './defaults/mechanicSettings.js'
 import OreGeneralSettings from './documents/OreGeneralSettings.js'
 import OreMechanicSettingsModel from './models/OreMechanicSettingsModel.js'

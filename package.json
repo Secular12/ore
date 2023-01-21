@@ -1,0 +1,23 @@
+{
+  "scripts": {
+    "build": "gulp buildAll",
+    "build:css": "gulp buildCss",
+    "build:js": "gulp buildJs",
+    "lint": "gulp lint",
+    "lint:fix": "gulp lint --fix",
+    "watch:css": "gulp watchCss"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.19.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "gulp": "^4.0.2",
+    "gulp-eslint7": "^0.3.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-if": "^3.0.0",
+    "gulp-sass": "^5.1.0",
+    "merge-stream": "^2.0.0",
+    "rollup": "^3.10.0",
+    "sass": "^1.57.1",
+    "yargs": "^17.6.2"
+  }
+}

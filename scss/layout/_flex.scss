@@ -1,0 +1,29 @@
+.flex {
+  align-items: center;
+  display: flex;
+  gap: toRem(8px);
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-end {
+  align-items: end;
+}
+
+.items-start {
+  align-items: start;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.grow-1 {
+  flex-grow: 1;
+}

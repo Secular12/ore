@@ -16,9 +16,7 @@ export class DicePool extends FormApplication {
             value: 1,
         }
 
-        this.overrideMaxDice = false
-        this.defaultMaxDiceSize = mechanicSettings.maxDicePoolSize
-        this.maxDiceOverride = mechanicSettings.maxDicePoolSize
+        this.maxDice = mechanicSettings.maxDicePoolSize
         this.pool = []
         this.rollMode = game.settings.get('core', 'rollMode')
     }
@@ -44,12 +42,6 @@ export class DicePool extends FormApplication {
         return this.pool.reduce((acc, {value}) => acc + (value ?? 0), 0)
     }
 
-    get maxDice () {
-        return this.overrideMaxDice
-            ? this.maxDiceOverride
-            : this.defaultMaxDiceSize
-    }
-
     get totalDice () {
         return this.calculatedDice < 0
             ? 0
@@ -62,10 +54,15 @@ export class DicePool extends FormApplication {
         const data = {
             calculatedDice: this.calculatedDice,
             customAdd: this.customAdd,
-            maxDiceOverride: this.maxDiceOverride,
-            overrideMaxDice: this.overrideMaxDice,
+            maxDice: this.maxDice,
             pool: this.pool,
             rollMode: this.rollMode,
+            rollModes: [
+                { name: localizer('PublicRoll'), value: 'publicroll' },
+                { name: localizer('PrivateGmRoll'), value: 'gmroll' },
+                { name: localizer('BlindGmRoll'), value: 'blindroll' },
+                { name: localizer('SelfRoll'), value: 'selfroll' },
+            ],
             totalDice: this.totalDice
         }
 
@@ -84,12 +81,12 @@ export class DicePool extends FormApplication {
         )
 
         this.customAdd = {
+            ...this.customAdd,
             name: expandedData.customAdd.name,
             value: +(+expandedData.customAdd.value).toFixed()
         }
 
-        this.maxDiceOverride = expandedData.maxDiceOverride ?? this.maxDiceOverride
-        this.overrideMaxDice = expandedData.overrideMaxDice
+        this.maxDice = expandedData.maxDice ?? 0
         this.rollMode = expandedData.rollMode
 
         $('.total-dice').text(this.totalDice)
@@ -97,7 +94,7 @@ export class DicePool extends FormApplication {
 
     activateListeners (html) {
         super.activateListeners(html)
-        fieldListeners(html)
+        fieldListeners.call(this, html)
 
         html
             .find('#add-custom-dice')
@@ -110,20 +107,12 @@ export class DicePool extends FormApplication {
         html
             .find('#roll-dice-pool')
             .click(this._rollDicePool.bind(this))
-        
-        html
-            .find('#override-max-dice')
-            .click(this._toggleMaxDiceOverride.bind(this))
     }
 
     async toggle () {
         if (!this.rendered) {
             const mechanicSettings = game.settings.get('ore', 'mechanicSettings')
-            this.defaultMaxDiceSize = mechanicSettings.maxDicePoolSize
-
-            if (!this.overrideMaxDice) {
-                this.maxDiceOverride = mechanicSettings.maxDicePoolSize
-            }
+            this.maxDice = mechanicSettings.maxDicePoolSize
 
             await this.render(true)
         } else {
@@ -136,7 +125,9 @@ export class DicePool extends FormApplication {
 
         this.customAdd = {
             name: '',
-            value: 1
+            source: null,
+            type: 'custom',
+            value: 1,
         }
 
         this.render(true)
@@ -154,9 +145,7 @@ export class DicePool extends FormApplication {
             value: 1,
         }
 
-        this.defaultMaxDiceSize = mechanicSettings.maxDicePoolSize
-        this.overrideMaxDice = false
-        this.maxDiceOverride = mechanicSettings.maxDicePoolSize
+        this.maxDice = mechanicSettings.maxDicePoolSize
 
         this.render(true)
     }
@@ -171,10 +160,5 @@ export class DicePool extends FormApplication {
 
         this._clearDicePool()
         this.close()
-    }
-
-    async _toggleMaxDiceOverride (event) {
-        this.overrideMaxDice = !this.overrideMaxDice
-        $('#max-dice-override').prop('disabled', (i, v) => !v)
     }
 }

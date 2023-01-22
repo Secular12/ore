@@ -76,11 +76,17 @@ export default async function (data) {
     const { diceSize } = game.settings.get('ore', 'mechanicSettings')
 
     // await dicePicker({ diceSize, rollResults })
+
+    console.log(Object.entries(rollResults)
+    .sort(([a],[b]) => b-a)
+    .map(([k, v]) => ({size: k, count: v})))
     
     const content = await renderTemplate('systems/ore/system/templates/chat/roll-result.html', {
         ...data,
         diceSize,
-        rollResults,
+        rollResults: Object.entries(rollResults)
+            .sort(([a],[b]) => b-a)
+            .map(([k, v]) => ({size: k, count: v})),
         speaker: game.user,
     })
 

@@ -1,0 +1,103 @@
+&#DicePool {
+  .window-content {
+    background: #222;
+    color: #fff;
+    padding: toRem(16px);
+
+    option {
+      color: black;
+    }
+  }
+}
+
+.DicePool-custom-die {
+  width: toRem(28px);
+
+  .field-input {
+    text-align: center;
+  }
+}
+
+#DicePool-custom-label {
+  font-weight: bold;
+}
+
+#DicePool-form {
+  display: grid;
+  gap: toRem(16px);
+  grid-template-areas:
+    "left right";
+}
+
+.DicePool-item-name {
+  padding-left: toRem(4px);
+}
+
+.DicePool-item-type-base {
+  font-weight: bold;
+}
+
+.DicePool-item-type-bonus {
+  color: green;
+  font-weight: bold;
+}
+
+.DicePool-item-type-custom {
+  font-style: italic;
+}
+
+.DicePool-item-type-bonus {
+  color: darkred;
+  font-weight: bold;
+}
+
+.DicePool-item-value {
+  font-weight: bold;
+  text-align: center;
+  width: toRem(28px);
+}
+
+.DicePool-max-dice {
+  width: toRem(53px);
+
+  .field-input {
+    text-align: center;
+  }
+}
+
+#DicePool-panel-left {
+  grid-area: left;
+}
+
+#DicePool-panel-right {
+  grid-area: right;
+}
+
+#DicePool-pool {
+  background-color: #555;
+  padding: toRem(4px);
+}
+
+#DicePool-pool-empty {
+  font-style: italic;
+  text-align: center;
+}
+
+#DicePool-pool-label {
+  font-weight: bold;
+  text-align: center;
+}
+
+#DicePool-total {
+  background-color: #555;
+  padding: toRem(4px);
+  text-align: center;
+}
+
+#DicePool-total-label {
+  font-weight: bold;
+}
+
+#DicePool-total-dice {
+  font-size: toRem(24px);
+}

@@ -2,7 +2,10 @@
     "Add": "Add",
     "BlindGmRoll": "Blind GM Roll",
     "Clear": "Clear",
+    "CustomDice": "Custom Dice",
     "Dice": "Dice",
+    "DicePool": "Dice Pool",
+    "DicePoolEmptyHint": "There are curently no dice in the pool.",
     "DiceSize": "Dice Size",
     "DiceSize6Hint": "Mechanics mostly remain with this selection, just remember that hit locations (if used) and probabilites change drastically.",
     "DiceSize10Hint": "This is the default die size used in ORE.",
@@ -19,5 +22,7 @@
     "PublicRoll": "Public Roll",
     "ReRoll": "Re-Roll",
     "Roll": "Roll",
-    "SelfRoll": "Self Roll"
+    "RollMode": "Roll Mode",
+    "SelfRoll": "Self Roll",
+    "Total": "Total"
 }

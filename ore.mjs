@@ -1,9 +1,111 @@
+var fieldInput = (type) => (value, options) => {
+  const inputHashIgnore = [
+    'class',
+    'hint',
+    'label',
+    'labelClass',
+  ];
+
+  return new Handlebars.SafeString(
+    (options.hash.label ? '<label' : '<div') +
+    ` class="field field-${type}` +
+    (options.hash.class ? ` ${options.hash.class}` : '') +
+    '">'+
+    (options.hash.label ? `<span class="field-label` : '') +
+    (options.hash.label && options.hash.labelClass ? ' ' + options.hash.labelClass : '') +
+    (options.hash.label ? `">${options.hash.label}</span>` : '') +
+    `<input type="${type}" ` +
+    Object.entries(options.hash)
+      .reduce((attributes, [key, value]) => {
+        if (inputHashIgnore.includes(key)) return attributes
+
+        if (['disabled', 'required'].includes(key) && value === true) {
+          return [...attributes, key]
+        }
+
+        if (key === 'inputClass') {
+          attributes[0] = `class="field-input ${value}"`;
+          return attributes
+        }
+
+        const val = value ?? null;
+
+        return [...attributes, val ? `${key}="${value}"` : '']
+      }, ['class="field-input"'])
+      .join(' ') +
+    ` value="${value ?? ''}"` +
+    `>` +
+    (options.hash.label ? `</label>` : '</div>') +
+    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '')
+  )
+};
+
+const localizer = target => game.i18n.localize(target);
+
+const rounding = (dir = null) => (number, increment, offset) => {
+  const roundingDir = dir ?? 'round';
+  if (!increment) return number
+  return Math[roundingDir]((number - offset) / increment ) * increment + offset
+};
+
+const round = rounding();
+
+var fieldSelect = (value, items, name, val, options) => {
+  const inputHashIgnore = [
+    'class',
+    'hint',
+    'label',
+    'labelClass',
+  ];
+
+  return new Handlebars.SafeString(
+    (options.hash.label ? '<label' : '<div') +
+    ` class="field field-select` +
+    (options.hash.class ? ` ${options.hash.class}` : '') +
+    '">'+
+    (options.hash.label ? `<span class="field-label` : '') +
+    (options.hash.label && options.hash.labelClass ? ' ' + options.hash.labelClass : '') +
+    (options.hash.label ? `">${options.hash.label}</span>` : '') +
+    `<select ` +
+    Object.entries(options.hash)
+      .reduce((attributes, [key, value]) => {
+        if (inputHashIgnore.includes(key)) return attributes
+
+        if (['disabled', 'required'].includes(key) && value === true) {
+          return [...attributes, key]
+        }
+
+        if (key === 'inputClass') {
+          attributes[0] = `class="field-input ${value}"`;
+          return attributes
+        }
+
+        const val = value ?? null;
+
+        return [...attributes, val ? `${key}="${value}"` : '']
+      }, ['class="field-input"'])
+      .join(' ') +
+    `>` +
+    items
+      .map(item => {
+        return `<option value="${item[val]}"` +
+        (item[val] === value ? ' selected>' : '>') +
+        `${item[name]}</option>`
+      })
+      .join('') +
+    `</select>` +
+    (options.hash.label ? `</label>` : '</div>') +
+    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '')
+  )
+};
+
 const registerHandlebarHelpers = () => {
     Handlebars.registerHelper({
         add: (a, b) => +a + +b,
         get: (list, key) => list[key] ?? false,
         length: (value) => value?.length ?? null,
         sub: (a, b) => +a - +b,
+        tern: (a, b, c) => a ? b : c,
     }),
     Handlebars.registerHelper('times', (n, block) => {
         let accum = '';
@@ -11,39 +113,9 @@ const registerHandlebarHelpers = () => {
             accum += block.fn(i);
         return accum
     });
-    Handlebars.registerHelper('fieldNumber', (value, options) => {
-        return new Handlebars.SafeString(
-            (options.hash.label ? '<label' : '<div') +
-            ' class="ore-field ore-field-number' +
-            (options.hash.class ? ` ${options.hash.class}` : '') +
-            '">'+
-            (options.hash.label ? `<span class="ore-field-label ore-field-number-label` : '') +
-            (options.hash.label && options.hash.labelClass ? ' ' + options.hash.labelClass : '') +
-            (options.hash.label ? `">${options.hash.label}</span>` : '') +
-            '<input type="number" data-field="number" ' +
-                Object.entries(options.hash)
-                    .reduce((attributes, [key, value]) => {
-                        if (['hint', 'label', 'class'].includes(key)) return attributes
-
-                        if (['disabled', 'required'].includes(key) && value === true) {
-                            return [...attributes, key]
-                        }
-
-                        if (key === 'inputClass') {
-                            return [...attributes, `class="${value}"`]
-                        }
-
-                        const val = value ?? null;
-
-                        return [...attributes, val ? `${key}="${value}"` : '']
-                    }, [])
-                    .join(' ') +
-            ` value="${value ?? ''}"` +
-            `>` +
-            (options.hash.label ? `</label>` : '</div>') +
-            (options.hash.hint ? `<p class="ore-field-hint ore-field-number-hint">${options.hash.hint}</p>` : '')
-        )
-    });
+    Handlebars.registerHelper('fieldNumber', fieldInput('number'));
+    Handlebars.registerHelper('fieldSelect', fieldSelect);
+    Handlebars.registerHelper('fieldText', fieldInput('text'));
 };
 
 var Logger = (method) => (...args) => {
@@ -55,54 +127,42 @@ var Logger = (method) => (...args) => {
     }
 };
 
-const localizer = target => game.i18n.localize(target);
-
-const rounding = (dir = null) => (number, increment, offset) => {
-    const roundingDir = dir ?? 'round';
-    if (!increment) return number
-    return Math[roundingDir]((number - offset) / increment ) * increment + offset
-};
-
-const round = rounding();
-
 var defaultMechanicSettings = {
     diceSize: 10,
     maxDicePoolSize: 10,
 };
 
-const numberFieldListener = (html) => {
-    html
-        .find('input[data-field="number"]')
-        .change(event => {
-            const el = event.target;
-            
-            if (!el.required && !el.value && el.value !== 0) return
+const numberFieldListener = function (html) {
+  html
+    .find('.field-number .field-input')
+    .change(event => {
+      const el = event.target;
+      
+      if (!el.required && !el.value && el.value !== 0) return
 
-            const max = el.max || el.max === 0 ? +el.max : null;
-            const min = el.min || el.min === 0 ? +el.min : null;
-            const step = +el.step;
-            const value = +el.value;
-            
-            if ((min || min === 0) && value < min) {
-                el.value = min;
-                return
-            }
-            
-            if ((max || max === 0) && value > max) {
-                el.value = max;
-                return
-            }
+      const max = el.max || el.max === 0 ? +el.max : null;
+      const min = el.min || el.min === 0 ? +el.min : null;
+      const step = +el.step;
+      const value = +el.value;
+      
+      if ((min || min === 0) && value < min) {
+        el.value = min;
+        return
+      }
+      
+      if ((max || max === 0) && value > max) {
+        el.value = max;
+        return
+      }
 
-            if (step) {
-                el.value = round(value, step, min ?? 0);
-            }
-
-            console.log(el.value);
-        });
+      if (step) {
+        el.value = round(value, step, min ?? 0);
+      }
+    });
 };
 
 const fieldListeners = (html) => {
-    numberFieldListener(html);
+  numberFieldListener(html);
 };
 
 class OreGeneralSettings extends FormApplication {
@@ -289,11 +349,17 @@ async function rollDice (data) {
     const { diceSize } = game.settings.get('ore', 'mechanicSettings');
 
     // await dicePicker({ diceSize, rollResults })
+
+    console.log(Object.entries(rollResults)
+    .sort(([a],[b]) => b-a)
+    .map(([k, v]) => ({size: k, count: v})));
     
     const content = await renderTemplate('systems/ore/system/templates/chat/roll-result.html', {
         ...data,
         diceSize,
-        rollResults,
+        rollResults: Object.entries(rollResults)
+            .sort(([a],[b]) => b-a)
+            .map(([k, v]) => ({size: k, count: v})),
         speaker: game.user,
     });
 
@@ -314,9 +380,7 @@ class DicePool extends FormApplication {
             value: 1,
         };
 
-        this.overrideMaxDice = false;
-        this.defaultMaxDiceSize = mechanicSettings.maxDicePoolSize;
-        this.maxDiceOverride = mechanicSettings.maxDicePoolSize;
+        this.maxDice = mechanicSettings.maxDicePoolSize;
         this.pool = [];
         this.rollMode = game.settings.get('core', 'rollMode');
     }
@@ -342,12 +406,6 @@ class DicePool extends FormApplication {
         return this.pool.reduce((acc, {value}) => acc + (value ?? 0), 0)
     }
 
-    get maxDice () {
-        return this.overrideMaxDice
-            ? this.maxDiceOverride
-            : this.defaultMaxDiceSize
-    }
-
     get totalDice () {
         return this.calculatedDice < 0
             ? 0
@@ -360,10 +418,15 @@ class DicePool extends FormApplication {
         const data = {
             calculatedDice: this.calculatedDice,
             customAdd: this.customAdd,
-            maxDiceOverride: this.maxDiceOverride,
-            overrideMaxDice: this.overrideMaxDice,
+            maxDice: this.maxDice,
             pool: this.pool,
             rollMode: this.rollMode,
+            rollModes: [
+                { name: localizer('PublicRoll'), value: 'publicroll' },
+                { name: localizer('PrivateGmRoll'), value: 'gmroll' },
+                { name: localizer('BlindGmRoll'), value: 'blindroll' },
+                { name: localizer('SelfRoll'), value: 'selfroll' },
+            ],
             totalDice: this.totalDice
         };
 
@@ -382,12 +445,12 @@ class DicePool extends FormApplication {
         );
 
         this.customAdd = {
+            ...this.customAdd,
             name: expandedData.customAdd.name,
             value: +(+expandedData.customAdd.value).toFixed()
         };
 
-        this.maxDiceOverride = expandedData.maxDiceOverride ?? this.maxDiceOverride;
-        this.overrideMaxDice = expandedData.overrideMaxDice;
+        this.maxDice = expandedData.maxDice ?? 0;
         this.rollMode = expandedData.rollMode;
 
         $('.total-dice').text(this.totalDice);
@@ -395,7 +458,7 @@ class DicePool extends FormApplication {
 
     activateListeners (html) {
         super.activateListeners(html);
-        fieldListeners(html);
+        fieldListeners.call(this, html);
 
         html
             .find('#add-custom-dice')
@@ -408,20 +471,12 @@ class DicePool extends FormApplication {
         html
             .find('#roll-dice-pool')
             .click(this._rollDicePool.bind(this));
-        
-        html
-            .find('#override-max-dice')
-            .click(this._toggleMaxDiceOverride.bind(this));
     }
 
     async toggle () {
         if (!this.rendered) {
             const mechanicSettings = game.settings.get('ore', 'mechanicSettings');
-            this.defaultMaxDiceSize = mechanicSettings.maxDicePoolSize;
-
-            if (!this.overrideMaxDice) {
-                this.maxDiceOverride = mechanicSettings.maxDicePoolSize;
-            }
+            this.maxDice = mechanicSettings.maxDicePoolSize;
 
             await this.render(true);
         } else {
@@ -434,7 +489,9 @@ class DicePool extends FormApplication {
 
         this.customAdd = {
             name: '',
-            value: 1
+            source: null,
+            type: 'custom',
+            value: 1,
         };
 
         this.render(true);
@@ -452,9 +509,7 @@ class DicePool extends FormApplication {
             value: 1,
         };
 
-        this.defaultMaxDiceSize = mechanicSettings.maxDicePoolSize;
-        this.overrideMaxDice = false;
-        this.maxDiceOverride = mechanicSettings.maxDicePoolSize;
+        this.maxDice = mechanicSettings.maxDicePoolSize;
 
         this.render(true);
     }
@@ -470,15 +525,18 @@ class DicePool extends FormApplication {
         this._clearDicePool();
         this.close();
     }
-
-    async _toggleMaxDiceOverride (event) {
-        this.overrideMaxDice = !this.overrideMaxDice;
-        $('#max-dice-override').prop('disabled', (i, v) => !v);
-    }
 }
 
 var ready = async () => {
     game.ore.DicePool = new DicePool();
+};
+
+var renderChatMessage = (app, html) => {
+  const $rollResultMessage = html.find('.RollResult-message');
+
+  if ($rollResultMessage.length) {
+    html.addClass('ore RollResult');
+  }
 };
 
 var renderSceneControls = (controls, html) => {
@@ -503,6 +561,7 @@ var renderSceneControls = (controls, html) => {
 
 var hooks = () => {
   Hooks.on('ready', ready);
+  Hooks.on('renderChatMessage', renderChatMessage);
   Hooks.on('renderSceneControls', renderSceneControls);
 };
 

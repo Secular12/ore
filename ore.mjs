@@ -4,12 +4,16 @@ var fieldInput = (type) => (value, options) => {
     'hint',
     'label',
     'labelClass',
+    'wrapperClass'
   ];
 
   return new Handlebars.SafeString(
-    (options.hash.label ? '<label' : '<div') +
-    ` class="field field-${type}` +
+    `<div class="field field-${type}` +
     (options.hash.class ? ` ${options.hash.class}` : '') +
+    '">' +
+    (options.hash.label ? '<label' : '<div') +
+    ' class="field-wrapper' +
+    (options.hash.wrapperClass ? ` ${options.hash.wrapperClass}` : '') +
     '">'+
     (options.hash.label ? `<span class="field-label` : '') +
     (options.hash.label && options.hash.labelClass ? ' ' + options.hash.labelClass : '') +
@@ -36,19 +40,10 @@ var fieldInput = (type) => (value, options) => {
     ` value="${value ?? ''}"` +
     `>` +
     (options.hash.label ? `</label>` : '</div>') +
-    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '')
+    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '') +
+    '</div>'
   )
 };
-
-const localizer = target => game.i18n.localize(target);
-
-const rounding = (dir = null) => (number, increment, offset) => {
-  const roundingDir = dir ?? 'round';
-  if (!increment) return number
-  return Math[roundingDir]((number - offset) / increment ) * increment + offset
-};
-
-const round = rounding();
 
 var fieldSelect = (value, items, name, val, options) => {
   const inputHashIgnore = [
@@ -56,13 +51,17 @@ var fieldSelect = (value, items, name, val, options) => {
     'hint',
     'label',
     'labelClass',
+    'wrapperClass'
   ];
 
   return new Handlebars.SafeString(
-    (options.hash.label ? '<label' : '<div') +
-    ` class="field field-select` +
+    '<div class="field field-select' +
     (options.hash.class ? ` ${options.hash.class}` : '') +
-    '">'+
+    '">' +
+    (options.hash.label ? '<label' : '<div') +
+    ` class="field-wrapper` +
+    (options.hash.wrapperClass ? ` ${options.hash.wrapperClass}` : '') +
+    '">' +
     (options.hash.label ? `<span class="field-label` : '') +
     (options.hash.label && options.hash.labelClass ? ' ' + options.hash.labelClass : '') +
     (options.hash.label ? `">${options.hash.label}</span>` : '') +
@@ -95,7 +94,8 @@ var fieldSelect = (value, items, name, val, options) => {
       .join('') +
     `</select>` +
     (options.hash.label ? `</label>` : '</div>') +
-    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '')
+    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '') +
+    '</div>'
   )
 };
 
@@ -126,6 +126,16 @@ var Logger = (method) => (...args) => {
         });
     }
 };
+
+const localizer = target => game.i18n.localize(target);
+
+const rounding = (dir = null) => (number, increment, offset) => {
+  const roundingDir = dir ?? 'round';
+  if (!increment) return number
+  return Math[roundingDir]((number - offset) / increment ) * increment + offset
+};
+
+const round = rounding();
 
 var defaultMechanicSettings = {
     diceSize: 10,

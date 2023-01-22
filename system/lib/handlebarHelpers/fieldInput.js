@@ -4,12 +4,16 @@ export default (type) => (value, options) => {
     'hint',
     'label',
     'labelClass',
+    'wrapperClass'
   ]
 
   return new Handlebars.SafeString(
-    (options.hash.label ? '<label' : '<div') +
-    ` class="field field-${type}` +
+    `<div class="field field-${type}` +
     (options.hash.class ? ` ${options.hash.class}` : '') +
+    '">' +
+    (options.hash.label ? '<label' : '<div') +
+    ' class="field-wrapper' +
+    (options.hash.wrapperClass ? ` ${options.hash.wrapperClass}` : '') +
     '">'+
     (options.hash.label ? `<span class="field-label` : '') +
     (options.hash.label && options.hash.labelClass ? ' ' + options.hash.labelClass : '') +
@@ -36,6 +40,7 @@ export default (type) => (value, options) => {
     ` value="${value ?? ''}"` +
     `>` +
     (options.hash.label ? `</label>` : '</div>') +
-    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '')
+    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '') +
+    '</div>'
   )
 }

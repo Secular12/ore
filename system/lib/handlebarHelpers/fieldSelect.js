@@ -1,18 +1,20 @@
-import { isObject } from "../helpers"
-
 export default (value, items, name, val, options) => {
   const inputHashIgnore = [
     'class',
     'hint',
     'label',
     'labelClass',
+    'wrapperClass'
   ]
 
   return new Handlebars.SafeString(
-    (options.hash.label ? '<label' : '<div') +
-    ` class="field field-select` +
+    '<div class="field field-select' +
     (options.hash.class ? ` ${options.hash.class}` : '') +
-    '">'+
+    '">' +
+    (options.hash.label ? '<label' : '<div') +
+    ` class="field-wrapper` +
+    (options.hash.wrapperClass ? ` ${options.hash.wrapperClass}` : '') +
+    '">' +
     (options.hash.label ? `<span class="field-label` : '') +
     (options.hash.label && options.hash.labelClass ? ' ' + options.hash.labelClass : '') +
     (options.hash.label ? `">${options.hash.label}</span>` : '') +
@@ -45,6 +47,7 @@ export default (value, items, name, val, options) => {
       .join('') +
     `</select>` +
     (options.hash.label ? `</label>` : '</div>') +
-    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '')
+    (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '') +
+    '</div>'
   )
 }

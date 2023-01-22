@@ -1,17 +1,14 @@
 <form autocomplete="off" class="{{cssClass}}">
-    <fieldset>
-        <legend>{{localize 'DiceSize'}}</legend>
-        <p>{{localize 'DiceSizeHint'}}</p>
-        {{
-            fieldSelect
-            mechanicSettings.diceSize.value
-            mechanicSettings.diceSize.choices
-            'name'
-            'value'
-            hint=(tern (eq mechanicSettings.diceSize.value 6) (localize 'DiceSize6Hint') (localize 'DiceSize10Hint'))
-            name="diceSize"
-        }}
-    </fieldset>
+    {{
+        fieldSelect
+        mechanicSettings.diceSize.value
+        mechanicSettings.diceSize.choices
+        'name'
+        'value'
+        hint=(localize 'DiceSizeHint')
+        label=(localize 'DiceSize')
+        name="diceSize"
+    }}
     {{
         fieldNumber
         mechanicSettings.maxDicePoolSize.value

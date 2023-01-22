@@ -207,12 +207,8 @@ class OreGeneralSettings extends FormApplication {
         );
 
         const expandedData = expandObject(formData);
-        const mechanicSettings = game.settings.get('ore', 'mechanicSettings');
-
-        const diceSizeSchema = mechanicSettings.schema.fields.diceSize;
 
         expandedData.maxDicePoolSize = +expandedData.maxDicePoolSize;
-        expandedData.diceSize = diceSizeSchema.choices[expandedData.diceSize];
 
         Logger()('OreGeneralSettings._updateObject serialized mechanicSettings:', expandedData);
         
@@ -234,16 +230,15 @@ class OreGeneralSettings extends FormApplication {
 
         Logger()('OreGenealSettings.deserializeMechanicSettings mechanicSettings:', mechanicSettings);
 
-        const diceSizeSchema = mechanicSettings.schema.fields.diceSize;
         const maxDicePoolSizeSchema = mechanicSettings.schema.fields.maxDicePoolSize;
         
         const deserializedData = {
             ...mechanicSettings,
             diceSize: {
-                choices: diceSizeSchema.choices,
-                index: diceSizeSchema.choices
-                    .findIndex(value => value === mechanicSettings.diceSize)
-                    .toString(),
+                choices: [
+                    { name: 'd10', value: 10 },
+                    { name: 'd6', value: 6 }
+                ],
                 value: mechanicSettings.diceSize,
             },
             maxDicePoolSize: {
@@ -266,7 +261,6 @@ class OreMechanicSettingsModel extends foundry.abstract.DataModel {
     static defineSchema() {
         return {
             diceSize: new fields.NumberField({
-                choices: [10, 6],
                 initial: 10,
                 integer: true,
                 nullable: false,

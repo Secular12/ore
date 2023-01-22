@@ -3,16 +3,14 @@
         <legend>{{localize 'DiceSize'}}</legend>
         <p>{{localize 'DiceSizeHint'}}</p>
         {{
-            radioBoxes
-            'diceSize'
+            fieldSelect
+            mechanicSettings.diceSize.value
             mechanicSettings.diceSize.choices
-            checked=mechanicSettings.diceSize.index
+            'name'
+            'value'
+            hint=(tern (eq mechanicSettings.diceSize.value 6) (localize 'DiceSize6Hint') (localize 'DiceSize10Hint'))
+            name="diceSize"
         }}
-        {{#if (eq mechanicSettings.diceSize.value 6)}}
-            <p>{{localize 'DiceSize6Hint'}}</p>
-        {{else}}
-            <p>{{localize 'DiceSize10Hint'}}</p>
-        {{/if}}
     </fieldset>
     {{
         fieldNumber

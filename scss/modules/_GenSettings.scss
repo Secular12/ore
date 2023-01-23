@@ -1,0 +1,21 @@
+&#GenSettings {
+  .window-content {
+    background: #222;
+    color: #fff;
+    padding: toRem(16px);
+
+    option {
+      color: black;
+    }
+  }
+}
+
+#GenSettings-dice-legend {
+  border-bottom: toRem(2px) solid #fff;
+  font-weight: bold;
+  width: 100%;
+}
+
+.GenSettings-max-pool {
+  width: 8rem;
+}

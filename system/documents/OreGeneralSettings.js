@@ -12,7 +12,7 @@ export default class OreGeneralSettings extends FormApplication {
             classes: ['ore', 'general-settings', 'settings'],
             closeOnSubmit: false,
             height: 900,
-            id: 'general-settings',
+            id: 'GenSettings',
             left: 400,
             resizable: true,
             submitOnChange: true,

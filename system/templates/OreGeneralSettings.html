@@ -1,23 +1,30 @@
 <form autocomplete="off" class="{{cssClass}}">
-    {{
-        fieldSelect
-        mechanicSettings.diceSize.value
-        mechanicSettings.diceSize.choices
-        'name'
-        'value'
-        hint=(localize 'DiceSizeHint')
-        label=(localize 'DiceSize')
-        name="diceSize"
-    }}
-    {{
-        fieldNumber
-        mechanicSettings.maxDicePoolSize.value
-        hint=(localize 'MaxDicePoolSizeHint')
-        label=(localize 'MaxDicePoolSize')
-        max=mechanicSettings.maxDicePoolSize.max
-        min=mechanicSettings.maxDicePoolSize.min
-        name="maxDicePoolSize"
-        required=true
-        step=mechanicSettings.maxDicePoolSize.step
-    }}
+    <fieldset id="GenSettings-dice-fieldset">
+        <legend id="GenSettings-dice-legend" class="mb-2">{{localize 'Dice'}}</legend>
+        <div class="flex">
+            {{
+                fieldSelect
+                mechanicSettings.diceSize.value
+                mechanicSettings.diceSize.choices
+                'name'
+                'value'
+                class="GenSettings-dice-size"
+                hint=(localize 'DiceSizeHint')
+                label=(localize 'DiceSize')
+                name="diceSize"
+            }}
+            {{
+                fieldNumber
+                mechanicSettings.maxDicePoolSize.value
+                class="GenSettings-max-pool"
+                hint=(localize 'MaxDicePoolSizeHint')
+                label=(localize 'MaxDicePoolSize')
+                max=mechanicSettings.maxDicePoolSize.max
+                min=mechanicSettings.maxDicePoolSize.min
+                name="maxDicePoolSize"
+                required=true
+                step=mechanicSettings.maxDicePoolSize.step
+            }}
+        </div>
+    </fieldset>
 </form>

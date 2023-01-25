@@ -457,7 +457,7 @@ class DicePool extends FormApplication {
         this.maxDice = expandedData.maxDice ?? 0;
         this.rollMode = expandedData.rollMode;
 
-        $('.total-dice').text(this.totalDice);
+        $('#DicePool-total-dice').text(this.totalDice);
     }
 
     activateListeners (html) {

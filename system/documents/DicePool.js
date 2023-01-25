@@ -107,6 +107,10 @@ export class DicePool extends FormApplication {
         html
             .find('#roll-dice-pool')
             .click(this._rollDicePool.bind(this))
+        
+        html
+            .find('.DicePool-item-remove')
+            .click(this._removePoolItem.bind(this))
     }
 
     async toggle () {
@@ -146,6 +150,14 @@ export class DicePool extends FormApplication {
         }
 
         this.maxDice = mechanicSettings.maxDicePoolSize
+
+        this.render(true)
+    }
+
+    _removePoolItem(event) {
+        const { index } = event.currentTarget.dataset
+
+        this.pool = this.pool.filter((item, itemIndex) => itemIndex !== parseInt(index, 10))
 
         this.render(true)
     }

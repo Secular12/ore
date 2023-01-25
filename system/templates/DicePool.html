@@ -29,10 +29,11 @@
         <h2 id="DicePool-pool-label" class="py-1">{{localize 'DicePool'}}</h2>
         {{#if (gt (length pool) 0)}}
             <ul id="DicePool-dice-list">
-                {{#each pool as |item|}}
+                {{#each pool as |item itemIndex|}}
                     <li class="DicePool-item flex py-1">
                         <span class="DicePool-item-value">{{tern (and (not (eq item.type 'base')) (gt item.value 0)) '+' ''}}{{item.value}}</span>
                         <span class="DicePool-item-name DicePool-item-type-{{item.type}} grow-1">{{item.name}}</span>
+                        <button class="DicePool-item-remove btn btn-icon btn-small mr-1" data-index="{{itemIndex}}" type="button"><i class="fa fa-times"></i></button>
                     </li>
                 {{/each}}
             </ul>

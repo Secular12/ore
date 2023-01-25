@@ -5,5 +5,23 @@
   font-weight: bold;
   height: toRem(26px);
   width: auto;
-  padding: toRem(2px) toRem(4px) toRem(3px); 
+  padding: toRem(2px) toRem(4px) toRem(3px);
+
+  &.btn-icon {
+    display: block;
+    border-radius: 50%;
+    font-weight: 400;
+    height: auto;
+    padding: toRem(4px) toRem(4px);
+    width: auto;
+
+    .fa {
+      display: block;
+      font-size: toRem(12px);
+      height: toRem(12px);
+      line-height: 1;
+      margin: 0;
+      width: toRem(12px);
+    }
+  }
 }

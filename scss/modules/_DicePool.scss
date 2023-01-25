@@ -22,6 +22,12 @@
   font-weight: bold;
 }
 
+.DicePool-item {
+  &:nth-child(odd) {
+    background-color: color("background-alt-2");
+  }
+}
+
 .DicePool-item-name {
   padding-left: toRem(4px);
 }
@@ -60,10 +66,10 @@
 
 #DicePool-pool {
   background-color: color("background-alt");
-  padding: toRem(4px);
 }
 
 #DicePool-pool-empty {
+  background-color: color("background-alt-2");
   font-style: italic;
   text-align: center;
 }

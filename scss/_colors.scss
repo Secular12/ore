@@ -1,6 +1,7 @@
 $pallette: (
   "black": #222,
   "dark-grey": #555,
+  "darker-grey": #383838,
   "green": green,
   "dark-red": darkred,
   "white": #fff
@@ -13,6 +14,7 @@ $pallette: (
 $colors: (
   "background": swatch("black"),
   "background-alt": swatch("dark-grey"),
+  "background-alt-2": swatch("darker-grey"),
   "body-text": swatch("white"),
   "bonus-text": swatch("green"),
   "border": swatch("white"),

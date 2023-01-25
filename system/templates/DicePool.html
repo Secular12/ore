@@ -1,90 +1,87 @@
 <form id="DicePool-form" autocomplete="off">
-    <div id="DicePool-panel-left">
-        <fieldset id="DicePool-custom" class="mb-3">
-            <legend id="DicePool-custom-label">{{localize 'CustomDice'}}</legend>
-            <div id="DicePool-custom-fields" class="flex items-end">
-                {{
-                    fieldNumber
-                    customAdd.value
-                    class="DicePool-custom-die"
-                    label=(localize 'Dice')
-                    name="customAdd.value"
-                    required=true
-                    step=1
-                }}
-                {{
-                    fieldText
-                    customAdd.name
-                    class="DicePool-custom-name grow-1"
-                    label=(localize 'Name')
-                    name="customAdd.name"
-                }}
-                <button
-                    class="btn"
-                    id="add-custom-dice"
-                    type="button"
-                >{{localize 'Add'}}</button>
-            </div>
-        </fieldset>
-        <section id="DicePool-pool" class="mt-2">
-            <h2 id="DicePool-pool-label">{{localize 'DicePool'}}</h2>
-            {{#if (gt (length pool) 0)}}
-                <ul id="DicePool-dice-list">
-                    {{#each pool as |item|}}
-                        <li class="DicePool-item flex my-1">
-                            <span class="DicePool-item-value">{{tern (and (not (eq item.type 'base')) (gt item.value 0)) '+' ''}}{{item.value}}</span>
-                            <span class="DicePool-item-name DicePool-item-type-{{item.type}} grow-1">{{item.name}}</span>
-                        </li>
-                    {{/each}}
-                </ul>
-            {{else}}
-                <p id="DicePool-pool-empty">{{localize 'DicePoolEmptyHint'}}</p>
-            {{/if}}
+    <fieldset id="DicePool-custom" class="mb-3">
+        <legend id="DicePool-custom-label">{{localize 'CustomDice'}}</legend>
+        <div id="DicePool-custom-fields" class="flex items-end">
+            {{
+                fieldNumber
+                customAdd.value
+                class="DicePool-custom-die"
+                label=(localize 'Dice')
+                name="customAdd.value"
+                required=true
+                step=1
+            }}
+            {{
+                fieldText
+                customAdd.name
+                class="DicePool-custom-name grow-1"
+                label=(localize 'Name')
+                name="customAdd.name"
+            }}
+            <button
+                class="btn"
+                id="add-custom-dice"
+                type="button"
+            >{{localize 'Add'}}</button>
+        </div>
+    </fieldset>
+    <section id="DicePool-pool" class="my-3">
+        <h2 id="DicePool-pool-label">{{localize 'DicePool'}}</h2>
+        {{#if (gt (length pool) 0)}}
+            <ul id="DicePool-dice-list">
+                {{#each pool as |item|}}
+                    <li class="DicePool-item flex my-1">
+                        <span class="DicePool-item-value">{{tern (and (not (eq item.type 'base')) (gt item.value 0)) '+' ''}}{{item.value}}</span>
+                        <span class="DicePool-item-name DicePool-item-type-{{item.type}} grow-1">{{item.name}}</span>
+                    </li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <p id="DicePool-pool-empty">{{localize 'DicePoolEmptyHint'}}</p>
+        {{/if}}
+    </section>
+    <div class="flex items-start my-3">
+        <div>
+            {{
+                fieldNumber
+                maxDice
+                class="DicePool-max-dice"
+                name="maxDice"
+                label=(localize 'MaxDice')
+                min='0'
+                required=true
+                step=1
+            }}
+        </div>
+        <section id="DicePool-total" class="grow-1">
+            <h2 id="DicePool-total-label">{{localize 'Total'}}</h2>
+            <p id="DicePool-total-dice">{{totalDice}}</p>
         </section>
     </div>
-    <div id="DicePool-panel-right" class="flex flex-col items-stretch justify-between">
-        <div class="flex items-start">
-            <div>
-                {{
-                    fieldNumber
-                    maxDice
-                    class="DicePool-max-dice"
-                    name="maxDice"
-                    label=(localize 'MaxDice')
-                    min='0'
-                    required=true
-                    step=1
-                }}
-            </div>
-            <section id="DicePool-total" class="grow-1">
-                <h2 id="DicePool-total-label">{{localize 'Total'}}</h2>
-                <p id="DicePool-total-dice">{{totalDice}}</p>
-            </section>
+    <hr class="seperator my-3">
+    <div class="flex items-end mt-3">
+        <div>
+            <button
+                class="btn"
+                id="clear-dice-pool"
+                type="button"
+            >{{localize 'Clear'}}</button>
         </div>
-        <div class="flex items-end">
-            <div>
-                <button
-                    class="btn"
-                    id="clear-dice-pool"
-                    type="button"
-                >{{localize 'Clear'}}</button>
-            </div>
-            {{
-                fieldSelect
-                rollMode
-                rollModes
-                'name'
-                'value'
-                class="grow-1"
-                label=(localize 'RollMode')
-            }}
-            <div>
-                <button
-                    class="btn"
-                    id="roll-dice-pool"
-                    type="button"
-                >{{localize 'Roll'}}</button>
-            </div>
+        {{
+            fieldSelect
+            rollMode
+            rollModes
+            'name'
+            'value'
+            class="grow-1"
+            label=(localize 'RollMode')
+        }}
+        <div>
+            <button
+                class="btn"
+                id="roll-dice-pool"
+                type="button"
+            >{{localize 'Roll'}}</button>
         </div>
     </div>
 </form>

@@ -27,7 +27,7 @@ export class DicePool extends FormApplication {
             template: 'systems/ore/system/templates/DicePool.html',
             title: localizer('DicePool'),
             classes: ['ore', 'DicePool'],
-            width: 600,
+            width: 360,
             height: 'auto',
             top: 500,
             left: 20,

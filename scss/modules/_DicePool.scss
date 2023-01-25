@@ -22,13 +22,6 @@
   font-weight: bold;
 }
 
-#DicePool-form {
-  display: grid;
-  gap: toRem(16px);
-  grid-template-areas:
-    "left right";
-}
-
 .DicePool-item-name {
   padding-left: toRem(4px);
 }
@@ -63,14 +56,6 @@
   .field-input {
     text-align: center;
   }
-}
-
-#DicePool-panel-left {
-  grid-area: left;
-}
-
-#DicePool-panel-right {
-  grid-area: right;
 }
 
 #DicePool-pool {

@@ -77,6 +77,7 @@
   background-color: color("background-alt");
   padding: toRem(4px);
   text-align: center;
+  width: toRem(72px);
 }
 
 #DicePool-total-label {
@@ -84,5 +85,5 @@
 }
 
 #DicePool-total-dice {
-  font-size: toRem(24px);
+  font-size: toRem(16px);
 }

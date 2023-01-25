@@ -40,7 +40,8 @@
             <p id="DicePool-pool-empty">{{localize 'DicePoolEmptyHint'}}</p>
         {{/if}}
     </section>
-    <div class="flex items-start my-3">
+    <div class="separator my-3"></div>
+    <div class="flex items-start justify-between my-3">
         <div>
             {{
                 fieldNumber
@@ -53,12 +54,12 @@
                 step=1
             }}
         </div>
-        <section id="DicePool-total" class="grow-1">
+        <section id="DicePool-total">
             <h2 id="DicePool-total-label">{{localize 'Total'}}</h2>
             <p id="DicePool-total-dice">{{totalDice}}</p>
         </section>
     </div>
-    <hr class="seperator my-3">
+    <hr class="separator my-3">
     <div class="flex items-end mt-3">
         <div>
             <button

@@ -1,20 +1,20 @@
 &.RollResult {
-  background: #222;
+  background: color("background");
   border-radius: 0;
-  color: #fff;
+  color: color("body-text");
 
   .message-header {
-    color: #fff;
+    color: color("body-text");
   }
 }
 
 .RollResult-results {
-  border: toRem(2px) solid #aaa;
+  border: toRem(2px) solid color("border");
   padding: toRem(4px);
 }
 
 .RollResult-result-summary {
-  background-color: #555;
+  background-color: color("background-alt");
   padding: toRem(2px) toRem(4px);
   text-align: center;
   width: 3rem;

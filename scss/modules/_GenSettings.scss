@@ -1,17 +1,17 @@
 &#GenSettings {
   .window-content {
-    background: #222;
-    color: #fff;
+    background: color("background");
+    color: color("body-text");
     padding: toRem(16px);
 
     option {
-      color: black;
+      color: color("select-option-text");
     }
   }
 }
 
 #GenSettings-dice-legend {
-  border-bottom: toRem(2px) solid #fff;
+  border-bottom: toRem(2px) solid color("border");
   font-weight: bold;
   width: 100%;
 }

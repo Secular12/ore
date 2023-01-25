@@ -1,0 +1,30 @@
+$pallette: (
+  "black": #222,
+  "dark-grey": #555,
+  "green": green,
+  "dark-red": darkred,
+  "white": #fff
+);
+
+@function swatch($name) {
+  @return map-get($pallette, $name);
+};
+
+$colors: (
+  "background": swatch("black"),
+  "background-alt": swatch("dark-grey"),
+  "body-text": swatch("white"),
+  "bonus-text": swatch("green"),
+  "border": swatch("white"),
+  "button": swatch("dark-grey"),
+  "button-text": swatch("white"),
+  "input-background": swatch("dark-grey"),
+  "input-border": swatch("white"),
+  "input-text": swatch("white"),
+  "penalty-text": swatch("dark-red"),
+  "select-option-text": swatch("black")
+);
+
+@function color($name) {
+  @return map-get($colors, $name);
+};

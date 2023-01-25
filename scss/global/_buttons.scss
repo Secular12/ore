@@ -1,6 +1,7 @@
 .btn {
-  background-color: gray;
+  background-color: color("button");
   border-radius: 0;
+  color: color("button-text");
   font-weight: bold;
   height: toRem(26px);
   width: auto;

@@ -1,11 +1,11 @@
 &#DicePool {
   .window-content {
-    background: #222;
-    color: #fff;
+    background: color("background");
+    color: color("body-text");
     padding: toRem(16px);
 
     option {
-      color: black;
+      color: color("select-option-text");
     }
   }
 }
@@ -38,7 +38,7 @@
 }
 
 .DicePool-item-type-bonus {
-  color: green;
+  color: color("bonus-text");
   font-weight: bold;
 }
 
@@ -46,8 +46,8 @@
   font-style: italic;
 }
 
-.DicePool-item-type-bonus {
-  color: darkred;
+.DicePool-item-type-penalty {
+  color: color("penalty-text");
   font-weight: bold;
 }
 
@@ -74,7 +74,7 @@
 }
 
 #DicePool-pool {
-  background-color: #555;
+  background-color: color("background-alt");
   padding: toRem(4px);
 }
 
@@ -89,7 +89,7 @@
 }
 
 #DicePool-total {
-  background-color: #555;
+  background-color: color("background-alt");
   padding: toRem(4px);
   text-align: center;
 }

@@ -95,6 +95,11 @@ select {
   text-transform: none;
 }
 
+label,
+legend {
+  line-height: 1;
+}
+
 button,
 [type='button'],
 [type='reset'],

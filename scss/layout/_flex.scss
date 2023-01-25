@@ -4,10 +4,6 @@
   gap: toRem(12px);
 }
 
-.flex-col {
-  flex-direction: column;
-}
-
 .justify-between {
   justify-content: space-between;
 }
@@ -18,10 +14,6 @@
 
 .items-start {
   align-items: start;
-}
-
-.items-stretch {
-  align-items: stretch;
 }
 
 .grow-1 {

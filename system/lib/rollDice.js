@@ -67,19 +67,13 @@ const getRollResults = async ({ totalDice, rollMode }) => {
 }
 
 export default async function (data) {
-    Logger()('rollDice.default dicePool, rollMode:', data)
+    Logger()('rollDice.default data:', data)
 
     const rollResults = await getRollResults(data)
 
     Logger()('rollDice.default rollResults:', rollResults)
 
     const { diceSize } = game.settings.get('ore', 'mechanicSettings')
-
-    // await dicePicker({ diceSize, rollResults })
-
-    console.log(Object.entries(rollResults)
-    .sort(([a],[b]) => b-a)
-    .map(([k, v]) => ({size: k, count: v})))
     
     const content = await renderTemplate('systems/ore/system/templates/chat/roll-result.html', {
         ...data,
@@ -90,6 +84,6 @@ export default async function (data) {
         speaker: game.user,
     })
 
-    ChatMessage.applyRollMode({ content }, data.rollMode)
-    ChatMessage.create({ content })
+    const chatData = ChatMessage.applyRollMode({ content }, data.rollMode)
+    ChatMessage.create(chatData)
 }

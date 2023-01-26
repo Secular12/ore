@@ -127,6 +127,19 @@ var Logger = (method) => (...args) => {
     }
 };
 
+const displayToggle = (html) => {
+  console.log('hello');
+  html
+    .find('.display-toggle')
+    .click(function (event) {
+      const $chevronIcon = $(this).find('.fa');
+      const { target } = event.currentTarget.dataset;
+
+      $chevronIcon.toggleClass('fa-chevron-down fa-chevron-up');
+      html.find(target).toggle();
+    });
+};
+
 const localizer = target => game.i18n.localize(target);
 
 const rounding = (dir = null) => (number, increment, offset) => {
@@ -547,6 +560,8 @@ var renderChatMessage = (app, html) => {
   if ($rollResultMessage.length) {
     html.addClass('ore RollResult');
   }
+
+  displayToggle(html);
 };
 
 var renderSceneControls = (controls, html) => {

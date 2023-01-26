@@ -15,11 +15,28 @@
             {{/each}}
         </ul>
     </div>
-    <ul class="RollResult-pool-list">
+    <button
+        class="RollResult-pool-toggle btn btn-text display-toggle py-1 my-2"
+        data-target=".RollResult-pool-list"
+        type="button"
+    >
+        <div class="flex justify-between">
+            <span class="RollResult-pool-total-wrapper">
+                <span class="RollResult-pool-total-label">{{localize 'Total Dice'}}:</span>
+                <span class="RollResult-pool-total">{{totalDice}}</span>
+            </span>
+            <span class="icon">
+                <i class="fa fa-chevron-down"></i>
+            </span>
+        </div>
+    </button>
+
+    <ul class="RollResult-pool-list hide">
         {{#each pool as |item|}}
             <li class="RollResult-pool-item">{{item.value}} {{item.name}}</li>
         {{/each}}
     </ul>
-    <p>{{totalDice}}</p>
-    <button class="btn re-roll" type="button">{{localize 'ReRoll'}}</button>
+    <div class="flex justify-end">
+        <button class="btn re-roll" type="button">{{localize 'ReRoll'}}</button>
+    </div>
 </div>

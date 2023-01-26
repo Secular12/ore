@@ -11,13 +11,14 @@
   font-feature-settings: normal;
   
   @import './global/normalize';
-  @import './layout/flex';
-  @import './layout/spacing';
   @import './global/fields';
   @import './global/buttons';
   @import './global/misc';
-
+  
   @import './modules/DicePool';
   @import './modules/GenSettings';
   @import './modules/RollResult';
+  
+  @import './layout/flex';
+  @import './layout/spacing';
 }

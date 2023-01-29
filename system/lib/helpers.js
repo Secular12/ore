@@ -1,5 +1,4 @@
 export const displayToggle = (html) => {
-  console.log('hello')
   html
     .find('.display-toggle')
     .click(function (event) {

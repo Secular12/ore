@@ -28,12 +28,12 @@
     <section id="DicePool-pool" class="my-3">
         <h2 id="DicePool-pool-label" class="py-1">{{localize 'DicePool'}}</h2>
         {{#if (gt (length pool) 0)}}
-            <ul id="DicePool-pool-list">
+            <ul id="pool-list">
                 {{#each pool as |item itemIndex|}}
-                    <li class="DicePool-pool-item flex py-1">
-                        <span class="DicePool-pool-item-value">{{tern (and (not (eq item.type 'base')) (gt item.value 0)) '+' ''}}{{item.value}}</span>
-                        <span class="DicePool-pool-item-name DicePool-pool-item-type-{{item.type}} grow-1">{{item.name}}</span>
-                        <button class="DicePool-pool-item-remove btn btn-icon btn-small mr-1" data-index="{{itemIndex}}" type="button"><i class="fa fa-times"></i></button>
+                    <li class="pool-item flex py-1">
+                        <span class="pool-item-value">{{tern (and (not (eq item.type 'base')) (gt item.value 0)) '+' ''}}{{item.value}}</span>
+                        <span class="pool-item-name pool-item-type-{{item.type}} grow-1">{{item.name}}</span>
+                        <button class="pool-item-remove btn btn-icon btn-small mr-1" data-index="{{itemIndex}}" type="button"><i class="fa fa-times"></i></button>
                     </li>
                 {{/each}}
             </ul>

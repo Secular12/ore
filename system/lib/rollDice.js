@@ -80,7 +80,15 @@ export default async function (data) {
         diceSize,
         rollResults: Object.entries(rollResults)
             .sort(([a],[b]) => b-a)
-            .map(([k, v]) => ({size: k, count: v})),
+            .reduce((acc, [k, v]) => {
+                if (v > 1) {
+                    acc.sets.push({size: k, count: v})
+                } else {
+                    acc.waste.push({size: k})
+                }
+
+                return acc
+            }, {sets: [], waste: []}),
         speaker: game.user,
     })
 

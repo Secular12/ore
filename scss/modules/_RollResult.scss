@@ -8,9 +8,15 @@
   }
 }
 
-.RollResult-results {
+.RollResult-sets,
+.RollResult-waste {
   border: toRem(2px) solid color("border");
-  padding: toRem(4px);
+}
+
+.RollResult-sets-heading,
+.RollResult-waste-heading {
+  font-weight: bold;
+  line-height: 1;
 }
 
 .RollResult-result-summary {

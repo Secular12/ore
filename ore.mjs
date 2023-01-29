@@ -128,7 +128,6 @@ var Logger = (method) => (...args) => {
 };
 
 const displayToggle = (html) => {
-  console.log('hello');
   html
     .find('.display-toggle')
     .click(function (event) {
@@ -370,7 +369,15 @@ async function rollDice (data) {
         diceSize,
         rollResults: Object.entries(rollResults)
             .sort(([a],[b]) => b-a)
-            .map(([k, v]) => ({size: k, count: v})),
+            .reduce((acc, [k, v]) => {
+                if (v > 1) {
+                    acc.sets.push({size: k, count: v});
+                } else {
+                    acc.waste.push({size: k});
+                }
+
+                return acc
+            }, {sets: [], waste: []}),
         speaker: game.user,
     });
 
@@ -477,7 +484,10 @@ class DicePool extends FormApplication {
         
         html
             .find('#clear-dice-pool')
-            .click(this._clearDicePool.bind(this));
+            .click(() => {
+                this._clearDicePool();
+                this.render(true);
+            });
 
         html
             .find('#roll-dice-pool')
@@ -512,7 +522,7 @@ class DicePool extends FormApplication {
         this.render(true);
     }
 
-    async _clearDicePool(event) {
+    _clearDicePool(event) {
         const mechanicSettings = game.settings.get('ore', 'mechanicSettings');
 
         this.pool = [];
@@ -525,8 +535,6 @@ class DicePool extends FormApplication {
         };
 
         this.maxDice = mechanicSettings.maxDicePoolSize;
-
-        this.render(true);
     }
 
     _removePoolItem(event) {
@@ -548,6 +556,14 @@ class DicePool extends FormApplication {
         this._clearDicePool();
         this.close();
     }
+
+    setPool(data) {
+        this.maxDice = data.maxDice;
+        this.rollMode = data.rollMode;
+        this.pool = data.pool;
+
+        this.render(true);
+    }
 }
 
 var ready = async () => {
@@ -557,11 +573,39 @@ var ready = async () => {
 var renderChatMessage = (app, html) => {
   const $rollResultMessage = html.find('.RollResult-message');
 
+  displayToggle(html);
+
   if ($rollResultMessage.length) {
     html.addClass('ore RollResult');
+
+    html
+      .find('.RollResult-re-roll')
+      .click(function (event) {
+        const $reRollButton = $(this);
+        const $message = $reRollButton.closest('.RollResult-message');
+        const $pool = $message.find('.pool-item');
+
+        const data = {
+          maxDice: $message.data('maxDice'),
+          pool: $pool
+            .map(function () {
+              const $poolItem = $(this);
+
+              return {
+                name: $poolItem.data('name'),
+                source: $poolItem.data('source') ?? null,
+                type: $poolItem.data('type'),
+                value: $poolItem.data('value')
+              }
+            })
+            .toArray(),
+          rollMode: $message.data('rollMode'),
+        };
+
+        game.ore.DicePool.setPool(data);
+      });
   }
 
-  displayToggle(html);
 };
 
 var renderSceneControls = (controls, html) => {

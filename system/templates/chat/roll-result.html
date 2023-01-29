@@ -1,23 +1,41 @@
-<div class="RollResult-message">
+<div
+    class="RollResult-message"
+    data-max-dice="{{maxDice}}"
+    data-roll-mode="{{rollMode}}"
+    data-total-dice="{{totalDice}}"
+>
     <div class="RollResult-results">
-        <ul class="RollResult-results-list">
-            {{#each rollResults as |result|}}
-                <li class="RollResult-results-row RollResult-size-{{result.size}} flex my-1">
-                    <div class="RollResult-result-summary">
-                        {{result.count}}x{{result.size}}
-                    </div>
-                    <ul class="RollResult-result-list flex grow-1">
-                        {{#times result.count}}
-                            <li class="RollResult-result">{{result.size}}</li>
-                        {{/times}}
-                    </ul>
-                <li>
-            {{/each}}
-        </ul>
+        <section class="RollResult-sets my-2 p-1">
+            <h2 class="RollResult-sets-heading mb-1">{{localize 'Sets'}}</h2>
+            <ul class="RollResult-sets-list">
+                {{#each rollResults.sets as |result|}}
+                    <li class="RollResult-results-row RollResult-size-{{result.size}} flex my-1">
+                        <div class="RollResult-result-summary">
+                            {{result.count}}x{{result.size}}
+                        </div>
+                        <ul class="RollResult-result-list flex grow-1">
+                            {{#times result.count}}
+                                <li class="RollResult-result">{{result.size}}</li>
+                            {{/times}}
+                        </ul>
+                    <li>
+                {{/each}}
+            </ul>
+        </section>
+        <section class="RollResult-waste my-2 p-1">
+            <h2 class="RollResult-waste-heading mb-1">{{localize 'WasteDice'}}</h2>
+            <ul class="RollResult-waste-list flex px-1">
+                {{#each rollResults.waste as |result|}}
+                    <li class="RollResult-results-row RollResult-size-{{result.size}}">
+                        {{result.size}}
+                    </li>
+                {{/each}}
+            </ul>
+        </section>
     </div>
     <button
         class="RollResult-pool-toggle btn btn-text display-toggle py-1 my-2"
-        data-target=".RollResult-pool-list"
+        data-target=".RollResult-pool"
         type="button"
     >
         <div class="flex justify-between">
@@ -30,13 +48,24 @@
             </span>
         </div>
     </button>
-
-    <ul class="RollResult-pool-list hide">
-        {{#each pool as |item|}}
-            <li class="RollResult-pool-item">{{item.value}} {{item.name}}</li>
-        {{/each}}
-    </ul>
+    <section class="RollResult-pool hide">
+        <ul class="pool-list">
+            {{#each pool as |item itemIndex|}}
+                <li
+                    class="pool-item flex py-1"
+                    data-index="{{item.index}}"
+                    data-name="{{item.name}}"
+                    data-source="{{item.source}}"
+                    data-type="{{item.type}}"
+                    data-value="{{item.value}}"
+                >
+                    <span class="pool-item-value">{{tern (and (not (eq item.type 'base')) (gt item.value 0)) '+' ''}}{{item.value}}</span>
+                    <span class="pool-item-name pool-item-type-{{item.type}} grow-1">{{item.name}}</span>
+                </li>
+            {{/each}}
+        </ul>
+    </section>
     <div class="flex justify-end">
-        <button class="btn re-roll" type="button">{{localize 'ReRoll'}}</button>
+        <button class="btn RollResult-re-roll" type="button">{{localize 'ReRoll'}}</button>
     </div>
 </div>

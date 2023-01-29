@@ -22,5 +22,7 @@
     "Roll": "Roll",
     "RollMode": "Roll Mode",
     "SelfRoll": "Self Roll",
-    "Total": "Total"
+    "Sets": "Sets",
+    "Total": "Total",
+    "WasteDice": "Waste Dice"
 }

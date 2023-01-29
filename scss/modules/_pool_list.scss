@@ -1,0 +1,33 @@
+.pool-item {
+  &:nth-child(odd) {
+    background-color: color("background-alt-2");
+  }
+}
+
+.pool-item-name {
+  padding-left: toRem(4px);
+}
+
+.pool-item-type-base {
+  font-weight: bold;
+}
+
+.pool-item-type-bonus {
+  color: color("bonus-text");
+  font-weight: bold;
+}
+
+.pool-item-type-custom {
+  font-style: italic;
+}
+
+.pool-item-type-penalty {
+  color: color("penalty-text");
+  font-weight: bold;
+}
+
+.pool-item-value {
+  font-weight: bold;
+  text-align: center;
+  width: toRem(28px);
+}

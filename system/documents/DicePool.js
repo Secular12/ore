@@ -102,7 +102,10 @@ export class DicePool extends FormApplication {
         
         html
             .find('#clear-dice-pool')
-            .click(this._clearDicePool.bind(this))
+            .click(() => {
+                this._clearDicePool()
+                this.render(true)
+            })
 
         html
             .find('#roll-dice-pool')
@@ -137,7 +140,7 @@ export class DicePool extends FormApplication {
         this.render(true)
     }
 
-    async _clearDicePool(event) {
+    _clearDicePool(event) {
         const mechanicSettings = game.settings.get('ore', 'mechanicSettings')
 
         this.pool = []
@@ -150,8 +153,6 @@ export class DicePool extends FormApplication {
         }
 
         this.maxDice = mechanicSettings.maxDicePoolSize
-
-        this.render(true)
     }
 
     _removePoolItem(event) {
@@ -172,5 +173,13 @@ export class DicePool extends FormApplication {
 
         this._clearDicePool()
         this.close()
+    }
+
+    setPool(data) {
+        this.maxDice = data.maxDice
+        this.rollMode = data.rollMode
+        this.pool = data.pool
+
+        this.render(true)
     }
 }

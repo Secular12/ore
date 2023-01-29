@@ -109,7 +109,7 @@ export class DicePool extends FormApplication {
             .click(this._rollDicePool.bind(this))
         
         html
-            .find('.DicePool-item-remove')
+            .find('.DicePool-pool-item-remove')
             .click(this._removePoolItem.bind(this))
     }
 

@@ -22,35 +22,35 @@
   font-weight: bold;
 }
 
-.DicePool-item {
+.DicePool-pool-item {
   &:nth-child(odd) {
     background-color: color("background-alt-2");
   }
 }
 
-.DicePool-item-name {
+.DicePool-pool-item-name {
   padding-left: toRem(4px);
 }
 
-.DicePool-item-type-base {
+.DicePool-pool-item-type-base {
   font-weight: bold;
 }
 
-.DicePool-item-type-bonus {
+.DicePool-pool-item-type-bonus {
   color: color("bonus-text");
   font-weight: bold;
 }
 
-.DicePool-item-type-custom {
+.DicePool-pool-item-type-custom {
   font-style: italic;
 }
 
-.DicePool-item-type-penalty {
+.DicePool-pool-item-type-penalty {
   color: color("penalty-text");
   font-weight: bold;
 }
 
-.DicePool-item-value {
+.DicePool-pool-item-value {
   font-weight: bold;
   text-align: center;
   width: toRem(28px);

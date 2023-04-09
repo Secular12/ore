@@ -1,35 +1,4 @@
-import { localizer } from './helpers.js'
 import Logger from './Logger.js'
-
-const dicePicker = async ({ diceSize, rollResults }) => {
-    const content = await renderTemplate('system/ore/system/templates/dialog/dice-picker.html', {
-        diceSize, rollResults
-    })
-
-    return new Promise((resolve, reject) => {
-        new Dialog({
-            buttons: {
-                confirm: {
-                    callback (html) {
-
-                    },
-                    icon: '<i class="fas fa-check"></i>',
-                    label: localizer('Confirm'),
-                }
-            },
-            content,
-            default: 'confirm',
-            render (html) {
-                
-            },
-            title: localizer('VerifyYourResults'),
-        }, {
-            classes: [],
-            jQuery: true,
-        })
-            .render(true)
-    })
-}
 
 const getRollFormula = (totalDice) => {
     const mechanicSettings = game.settings.get('ore', 'mechanicSettings')
